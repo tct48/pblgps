@@ -4,6 +4,9 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
+use aryelds\sweetalert\SweetAlert;
+
+use kartik\alert\Alert;
 
 /**
  * Signup form
@@ -25,25 +28,25 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'required', 'message'=>'กรุณากรอก ยูซเซอร์เนม'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'มียูซเซอร์เนมนี้แล้วในระบบ.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
-            ['email', 'required'],
+            ['email', 'required', 'message'=>'กรุณากรอก อีเมลล์'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'มีอีเมลล์นี้แล้วในระบบ.'],
 
-            ['password', 'required'],
+            ['password', 'required', 'message'=>'กรุณากรอก รหัสผ่าน'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
 
             ['firstname', 'trim'],
-            ['firstname', 'required'],
+            ['firstname', 'required', 'message'=>'กรุณากรอก ชื่อจริง'],
             ['lastname', 'trim'],
-            ['lastname', 'required'],
+            ['lastname', 'required', 'message'=>'กรุณากรอก นามสกุล'],
             ['phone', 'trim'],
-            ['phone', 'required'],
+            ['phone', 'required', 'message'=>'กรุณากรอก เบอร์โทรศัพท์'],
             ['firstname', 'trim'],
         ];
     }
@@ -69,7 +72,7 @@ class SignupForm extends Model
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
-        return $user->save() && $this->sendEmail($user);
+        return $user->save();
 
     }
 

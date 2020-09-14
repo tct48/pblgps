@@ -23,7 +23,8 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            ['username', 'required', 'message'=>'กรุณากรอก ยูซเซอร์เนม'],
+            ['password', 'required', 'message'=>'กรุณากรอก รหัสผ่าน'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -56,8 +57,11 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            Yii::$app->session->setFlash('success', 'ยินดีต้อนรับเข้าสู่ระบบ');
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
+
+        Yii::$app->session->setFlash('error', 'Username หรือ Password ไม่ถูกต้อง');
         
         return false;
     }

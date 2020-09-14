@@ -15,6 +15,9 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
+use aryelds\sweetalert\SweetAlert;
+use kartik\alert\Alert;
+
 /**
  * Site controller
  */
@@ -108,7 +111,7 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
+        Yii::$app->session->setFlash('info', 'ขอบคุณที่ใช้บริการ');
         return $this->goHome();
     }
 
@@ -154,13 +157,13 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash('success', 'ขอบคุณสำหรับการสมัครสมาชิก');
             return $this->goHome();
-        }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
+        }            
+    
+            return $this->render('signup', [
+                'model' => $model,
+            ]);        
     }
 
     /**
