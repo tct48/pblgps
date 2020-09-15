@@ -68,6 +68,15 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
+    <div class="jumbotron" style="background-image:url('https://i.pinimg.com/originals/64/92/77/6492778872455eee10cbb314fc36863f.jpg');background-repeat: no-repeat;background-size: 1000;">
+        <h1 class="custom-head">PBLGPS Hero</h1>
+
+        <p class="lead custom-head">ระบบจัดการพัฒนาความรู้ควบคู่บทเรียน</p>
+
+        <p><a class="btn btn-lg btn-info" href="http://www.yiiframework.com">เริ่มต้น</a></p>
+    </div>
+
+
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
